@@ -1,9 +1,11 @@
-.body {
-    justify-content: center;
-    align-items: center;
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
 
-#form {
+.form-container {
     width: 100%;
     max-width: 500px;
     margin: 50px auto;
@@ -11,19 +13,60 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
-input, select {
-    width: 100%;
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, select, button {
+    width: calc(100% - 22px); 
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
-
 }
 
+input {
+    background-color: #fff; 
+}
 
+input:focus {
+    background-color: #fff;
+}
 
+input.error {
+    background-color: #fdd;
+    
+}
+
+input.valid {
+    background-color: #dfd;
+    
+}
+
+select {
+    background-color: #fff;
+}
+
+select:invalid {
+    background-color: #fff; 
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
