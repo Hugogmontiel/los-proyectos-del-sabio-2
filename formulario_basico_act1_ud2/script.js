@@ -102,6 +102,5 @@ document.addEventListener("DOMContentLoaded", () => {
     selectTipoVia.addEventListener('change', validarSelect);
 
     
-    buttonEnviar.disabled = true;
-    buttonEnviar.style.backgroundColor = "#cccccc";
+    
 });
