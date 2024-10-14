@@ -39,6 +39,7 @@ th {
     text-align: left;
     padding-bottom: 10px;
     border-bottom: 1px solid;
+    border-color: #cccccc;
 }
 
 td {
@@ -51,6 +52,7 @@ td {
     
     margin: 20px;
     border-bottom: 1px solid;
+    border-color: #cccccc;
 }
 .total {
     margin: 20px;
@@ -58,4 +60,23 @@ td {
 }
 .right {
     margin-left: 460.33px;
+}
+
+.text-producto-pequeno {
+    font-size: small;
+}
+
+.contador {
+    padding:15px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #cccccc;
+}
+
+button {
+    margin:5px;
+    background-color: #ffffff;
+    border:none;
 }
