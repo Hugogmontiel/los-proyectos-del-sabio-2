@@ -1,44 +1,6 @@
 import carrito from "./carrito.js"
-document.addEventListener("DOMContentLoaded", insertarTabla);
-
-const mas = document.querySelector(".mas"); 
-const menos = document.querySelector(".menos");
-const contador = document.querySelector(".contador");
-const unidad = document.querySelector(".valorUnidad");
-const total = document.querySelector(".valorTotal");
-const totalCarrito = document.querySelector(".right"); 
-const tabla = document.querySelector('.tabla-main');
-
-let valorContador = 0;
-const valorUnidad = parseFloat(unidad.textContent.replace('€', '').replace(',', '.'));
-
-function botonMas() {
-    valorContador++;
-    actualizarContador();
-    actualizarTotal();
-}
-
-function botonMenos() {
-    if (valorContador > 0) { 
-        valorContador--;
-    }
-    actualizarContador();
-    actualizarTotal();
-}
-
-function actualizarContador() {
-    contador.innerHTML = valorContador;
-}
-
-function actualizarTotal () {
-    total.innerHTML = (valorContador * valorUnidad).toFixed(2) + "€";
-    totalCarrito.innerHTML = parseFloat(total.textContent.replace('€', '').replace(',', '.')) + "€";
-}
-
-mas.addEventListener("click", botonMas);
-menos.addEventListener("click", botonMenos);
-
 const carro = new carrito();
+
 
 
 function cargarJSON(data) {
@@ -54,6 +16,7 @@ fetch('https://jsonblob.com/api/1295753236949360640')
 .then(function(data) {
     console.log(data)
     cargarJSON(data)
+    insertarTabla();
     
   })
 .catch(function(error) {
@@ -62,13 +25,59 @@ fetch('https://jsonblob.com/api/1295753236949360640')
 
 
 function insertarTabla() {
+    
     const listuca = carro.getListaProductos();
-    listuca.array.forEach(element => {
+    
+    
+    listuca.forEach((producto, SKU) => {
+        let modeloTabla ='<tr></tr>'
+        modeloTabla = modeloTabla +  `<td><h2>${producto.title}</h2><p class="text-producto-pequeno">Ref:${SKU}</p></td>`;
+        modeloTabla = modeloTabla + '<td><button class="menos" id="menos">-</button><span class="contador" id="contador">0</span><button class="mas" id="mas">+</button></td>';
+        modeloTabla = modeloTabla + `<td><span class="valorUnidad">${producto.price}</span></td>`;
+        modeloTabla = modeloTabla + '<td><span class="valorTotal">0</span></td>';
+        tabla.innerHTML += modeloTabla;
+
+        const mas = document.querySelector(".mas"); 
+        const menos = document.querySelector(".menos");
+        const contador = document.querySelector(".contador");
+        const unidad = document.querySelector(".valorUnidad");
+        const total = document.querySelector(".valorTotal");
+        const totalCarrito = document.querySelector(".right"); 
         
+        const valorUnidad = parseFloat(unidad);
+
+        mas.addEventListener("click", botonMas);
+        menos.addEventListener("click", botonMenos);
+
         
-    });
+  });
+  
 }
-        
+const tabla = document.querySelector('.tabla-main');
+
+let valorContador = 0;
+
+
+
+
+function botonMas() {
+    valorContador++;
+    actualizarContador();
+    
+}
+
+function botonMenos() {
+    if (valorContador > 0) { 
+        valorContador--;
+    }
+    actualizarContador();
+    
+}
+
+function actualizarContador() {
+    contador.innerHTML = valorContador;
+}
+
 
 
 

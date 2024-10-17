@@ -12,7 +12,10 @@ export default class Carrito {
     }
 
     setlistaProductos(listaProductos) {
-        this.#listaProductos = listaProductos;
+        this.#listaProductos = new Map();  // Inicializa el Map
+        listaProductos.forEach(producto => {
+            this.#listaProductos.set(producto.SKU, producto);  // Agrega cada producto al Map
+        });
     }
 
     getListaProductos() {
@@ -36,23 +39,10 @@ export default class Carrito {
             // }
     }
 
-    obtenerCarrito() {
-        // Devuelve información de los productos añadidos al carrito
-        // Además del total calculado de todos los productos
-        // Por ejemplo:
-        // {
-        // "total": "5820",
-        // "currency: "€",
-        // "products" : [
-        // {
-        // "sku": "0K3QOSOV4V"
-        // ..
-        // }
-        // ]}
-        // }
-    }
+    obtenerInformacionProducto(SKU) {
+        return this.#listaProductos.get(SKU);  
     
-
+    }
     
 }
 
