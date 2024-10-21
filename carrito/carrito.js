@@ -7,28 +7,50 @@ export default class Carrito {
 
 
     constructor() {
-        this.listaProductos = new Map();
+        this.#listaProductos = new Map();
         this.total = 0;
     }
 
     setlistaProductos(listaProductos) {
-        this.#listaProductos = new Map();  // Inicializa el Map
-        listaProductos.forEach(producto => {
-            this.#listaProductos.set(producto.SKU, producto);  // Agrega cada producto al Map
-        });
+        this.#listaProductos = listaProductos;  
+       
     }
 
     getListaProductos() {
         return this.#listaProductos;
     }
 
-    calculoTotalCarrito() {
+    setTotal(total) {
+        this.#total = total;
+    }
+
+    getTotal() {
+        return this.#total;
+    }
+
+    setCurrency(currency) {
+        this.#currency = currency;
 
     }
 
-    actualizarUnidades(sku, unidades) {
-        // Actualiza el número de unidades que se quieren comprar de un producto
+    getCurrency() {
+        return this.#total;
+    }
+
+    calculoTotalCarrito() {
+        
+    }
+
+    actualizarUnidades(sku, producto) {
+        if(producto.quantity > 0 ) {
+            this.#listaProductos.set(sku, producto);
         }
+        else {
+            this.#listaProductos.delete(sku);
+        }
+        
+         
+    }
 
     obtenerInformacionProducto(sku) {
             // Devuelve los datos de un producto además de las unidades seleccionadas

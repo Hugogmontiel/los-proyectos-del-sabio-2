@@ -1,17 +1,23 @@
 import carrito from "./carrito.js"
 const carro = new carrito();
+const productos = new Map();
 
+function setProductos(producto) {
+    producto.forEach(products => {
+    productos.set(products.SKU, products); 
 
+});
+}
 
 function cargarJSON(data) {
-    carro.setlistaProductos(data.products);
+    setProductos(data.products);
     carro.currency = data.currency;
-    console.log(carro.getListaProductos());
-
+    console.log(productos);
+    
 
 }
 
-fetch('https://jsonblob.com/api/1295753236949360640')
+fetch('https://jsonblob.com/api/1296856240016449536')
 .then((resp) => resp.json())
 .then(function(data) {
     console.log(data)
@@ -23,64 +29,98 @@ fetch('https://jsonblob.com/api/1295753236949360640')
   console.log(error);
 });
 
-
+const tabla = document.querySelector('.tabla-main');
 function insertarTabla() {
-    
-    const listuca = carro.getListaProductos();
-    
+
+    const listuca = productos;
+    let resultadoTotal = 0;
     
     listuca.forEach((producto, SKU) => {
-        let modeloTabla ='<tr></tr>'
-        modeloTabla = modeloTabla +  `<td><h2>${producto.title}</h2><p class="text-producto-pequeno">Ref:${SKU}</p></td>`;
-        modeloTabla = modeloTabla + '<td><button class="menos" id="menos">-</button><span class="contador" id="contador">0</span><button class="mas" id="mas">+</button></td>';
-        modeloTabla = modeloTabla + `<td><span class="valorUnidad">${producto.price}</span></td>`;
-        modeloTabla = modeloTabla + '<td><span class="valorTotal">0</span></td>';
-        tabla.innerHTML += modeloTabla;
+        let fila = document.createElement('tr');
+        let celdaTitulo = document.createElement('td');
+        const titulo = document.createElement('h2');
+        titulo.innerText = producto.title; 
+        const ref = document.createElement('p');
+        ref.classList.add('text-producto-pequeno');
+        ref.innerText = `Ref: ${SKU}`; 
 
-        const mas = document.querySelector(".mas"); 
-        const menos = document.querySelector(".menos");
-        const contador = document.querySelector(".contador");
-        const unidad = document.querySelector(".valorUnidad");
-        const total = document.querySelector(".valorTotal");
-        const totalCarrito = document.querySelector(".right"); 
+        celdaTitulo.appendChild(titulo);
+        celdaTitulo.appendChild(ref);
+
+
+        let celdaUnidad = document.createElement('td');
+        const botonMenos = document.createElement('button');
+        botonMenos.classList.add('menos');
+        botonMenos.innerText = '-';
+        const contadorSpan = document.createElement('span');
+        contadorSpan.classList.add('contador');
+        contadorSpan.innerText = '0';
+        const botonMas = document.createElement('button');
+        botonMas.classList.add('mas');
+        botonMas.innerText = '+';
+
+        celdaUnidad.appendChild(botonMenos);
+        celdaUnidad.appendChild(contadorSpan);
+        celdaUnidad.appendChild(botonMas);
+
+
+
+        let celdaPrecio = document.createElement('td');
+        const precio = document.createElement('span');
+        precio.classList.add('valorUnidad')
+        precio.innerText = producto.price + "€";
+
+        celdaPrecio.appendChild(precio);
+
+
+        let celdaTotal = document.createElement('td');
+        const total = document.createElement('span');
+        total.classList.add('valorTotal')
+        total.innerText = resultadoTotal + "€";
+
+        celdaTotal.appendChild(total);
+
+        fila.appendChild(celdaTitulo);
+        fila.appendChild(celdaUnidad);
+        fila.appendChild(celdaPrecio);
+        fila.appendChild(celdaTotal);
         
-        const valorUnidad = parseFloat(unidad);
+        tabla.appendChild(fila);
 
-        mas.addEventListener("click", botonMas);
-        menos.addEventListener("click", botonMenos);
+        botonMas.addEventListener('click', function() {
+            let valorContador = parseInt(contadorSpan.innerText);
+            valorContador++;
+            contadorSpan.innerText = valorContador;
+            resultadoTotal = (valorContador * parseFloat(producto.price)).toFixed(2) + "€";
+            total.innerText = resultadoTotal;
 
-        
+            producto.quantity = valorContador;
+            carro.actualizarUnidades(producto.SKU, productos.get(producto.SKU));
+            console.log(carro.getListaProductos());
+        });
+
+        botonMenos.addEventListener('click', function() {
+            let valorContador = parseInt(contadorSpan.innerText);
+            if (valorContador > 0) {
+                valorContador--;
+            }
+            contadorSpan.innerText = valorContador;
+            resultadoTotal = (valorContador * parseFloat(producto.price)).toFixed(2) + "€";
+            total.innerText = resultadoTotal;
+
+            producto.quantity = valorContador;
+            carro.actualizarUnidades(producto.SKU, productos.get(producto.SKU));
+            console.log(carro.getListaProductos());
+        });
+     
   });
   
 }
-const tabla = document.querySelector('.tabla-main');
 
-let valorContador = 0;
+const tabla2 = document.querySelector('.checkeo-productos')
+function actualizarTablaDerecha(SKU) {
+    let prods = document.createElement('p');
 
-
-
-
-function botonMas() {
-    valorContador++;
-    actualizarContador();
+    prods.appendChild(table2);
     
 }
-
-function botonMenos() {
-    if (valorContador > 0) { 
-        valorContador--;
-    }
-    actualizarContador();
-    
-}
-
-function actualizarContador() {
-    contador.innerHTML = valorContador;
-}
-
-
-
-
-
-
-
