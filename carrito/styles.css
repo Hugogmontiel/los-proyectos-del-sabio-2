@@ -1,82 +1,138 @@
 body {
-    margin-left: 40px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    min-height: 100vh;
+}
+
+h1 {
+    color: #333;
+    font-size: 2rem;
+    text-align: center;
 }
 
 header {
-    margin-left: -40px;
-    padding:15px;
-    border-bottom: 1px solid;
-    border-color: #cccccc;
+    background-color: #333;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    margin: 0; 
 }
 
 header h1 {
-    margin-left: 50px;
-
+    color: white;
 }
 
 .parent {
-    margin-top: 1cm;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    }
-    .div1, .div2 {
-        margin: 20px;
-    }
-
-    .div1 { grid-area: 1 / 1 / 2 / 3; }
-    .div2 { grid-area: 1 / 3 / 2 / 4; 
-    background-color: rgb(221, 219, 219);
-    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px; 
+}
 
 table {
     width: 100%;
-    border-collapse:collapse;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
-th {
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
     text-align: left;
-    padding-bottom: 10px;
-    border-bottom: 1px solid;
-    border-color: #cccccc;
+}
+
+th {
+    background-color: #333;
+    color: white;
 }
 
 td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-}
-
-.checkeo-productos {
-    
-    margin: 20px;
-    border-bottom: 1px solid;
-    border-color: #cccccc;
-}
-.total {
-    margin: 20px;
-    display:flex;
-}
-.right {
-    margin-left: 460.33px;
-}
-
-.text-producto-pequeno {
-    font-size: small;
-}
-
-.contador {
-    padding:15px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 5px;
-    border: 1px solid;
-    border-color: #cccccc;
+    font-size: 0.9rem;
 }
 
 button {
-    margin:5px;
-    background-color: #ffffff;
-    border:none;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.contador {
+    margin: 0 10px;
+    font-size: 1rem;
+}
+
+.valorUnidad, .valorTotal {
+    font-weight: bold;
+}
+
+.valorTotal {
+    color: #27ae60;
+}
+
+.div2 {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkeo-productos h1 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.total .left {
+    font-weight: bold;
+}
+
+.total .right {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.div3 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#convertirJson {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#convertirJson:hover {
+    background-color: #219150;
+}
+
+
+@media (max-width: 768px) {
+    .parent {
+        flex-direction: column;
+        align-items: center;
+    }
 }

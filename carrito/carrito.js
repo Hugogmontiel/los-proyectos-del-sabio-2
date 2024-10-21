@@ -20,13 +20,15 @@ export default class Carrito {
         return this.#listaProductos;
     }
 
-    setTotal(total) {
-        this.#total = total;
+    setTotal() {
+        this.#total = this.calculoTotal();
     }
 
     getTotal() {
         return this.#total;
     }
+
+
 
     setCurrency(currency) {
         this.#currency = currency;
@@ -37,8 +39,14 @@ export default class Carrito {
         return this.#total;
     }
 
-    calculoTotalCarrito() {
-        
+    calculoTotal() {
+        let totalCarro = 0;
+        this.#listaProductos.forEach(producto => {
+            totalCarro += parseInt(producto.quantity) * parseFloat(producto.price);
+        });
+
+        return totalCarro.toFixed(2)
+
     }
 
     actualizarUnidades(sku, producto) {
@@ -52,13 +60,20 @@ export default class Carrito {
          
     }
 
-    obtenerInformacionProducto(sku) {
-            // Devuelve los datos de un producto además de las unidades seleccionadas
-            // Por ejemplo
-            // {
-            // "sku": "0K3QOSOV4V",
-            // "quantity": 3
-            // }
+      obtenerCarrito() {
+        const listaProductosCarrito = Array.from(this.#listaProductos.values()); 
+        
+        if (listaProductosCarrito.length === 0) {
+            alert("El carrito está vacío. No se puede guardar.");
+
+            return null; 
+        }
+
+        const carritoJSON = JSON.stringify(listaProductosCarrito);
+        console.log(carritoJSON);
+        alert("Carrito guardado");
+
+        return carritoJSON;
     }
 
     obtenerInformacionProducto(SKU) {

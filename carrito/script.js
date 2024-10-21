@@ -1,6 +1,9 @@
 import carrito from "./carrito.js"
 const carro = new carrito();
 const productos = new Map();
+const tabla = document.querySelector('.tabla-main');
+const prodTotal = document.querySelector('.productos-totales');
+const totalFinal = document.querySelector('.right');
 
 function setProductos(producto) {
     producto.forEach(products => {
@@ -29,7 +32,7 @@ fetch('https://jsonblob.com/api/1296856240016449536')
   console.log(error);
 });
 
-const tabla = document.querySelector('.tabla-main');
+
 function insertarTabla() {
 
     const listuca = productos;
@@ -97,6 +100,7 @@ function insertarTabla() {
             producto.quantity = valorContador;
             carro.actualizarUnidades(producto.SKU, productos.get(producto.SKU));
             console.log(carro.getListaProductos());
+            actualizarTablaDerecha(SKU, producto);
         });
 
         botonMenos.addEventListener('click', function() {
@@ -111,16 +115,44 @@ function insertarTabla() {
             producto.quantity = valorContador;
             carro.actualizarUnidades(producto.SKU, productos.get(producto.SKU));
             console.log(carro.getListaProductos());
+            actualizarTablaDerecha(SKU, producto);
         });
      
   });
   
 }
 
-const tabla2 = document.querySelector('.checkeo-productos')
-function actualizarTablaDerecha(SKU) {
-    let prods = document.createElement('p');
 
-    prods.appendChild(table2);
+function actualizarTablaDerecha(SKU, producto) {
+    let prodExistente = document.querySelector(`#prod-${SKU}`);
+    totalFinal.innerText = carro.calculoTotal() + "€";
     
+    if (producto.quantity === 0) {
+        if (prodExistente) {
+            prodTotal.removeChild(prodExistente);
+        }
+    } 
+    else {
+        if (prodExistente) {
+            prodExistente.innerText = `${producto.quantity} ${producto.title} ${(producto.quantity * producto.price).toFixed(2)}€`;
+        } 
+        else {
+            
+            let prods = document.createElement('p');
+            prods.id = `prod-${SKU}`;  
+            prods.innerText = `${producto.quantity} ${producto.title} ${(producto.quantity * producto.price).toFixed(2)}€`;
+            
+            
+            prodTotal.appendChild(prods);
+        }
+    }
 }
+
+const botonGuardarCarrito = document.getElementById('convertirJson');
+
+botonGuardarCarrito.addEventListener('click', function() {
+    carro.obtenerCarrito();
+    
+});
+
+
