@@ -1,0 +1,13 @@
+<div class="card mb 3">
+    <div class="row g-0">
+        <img [src]="miUser.image" class="card-img-top" [alt]="miUser.username">
+        <div class="card-body">
+            <h5 class="card-title">{{miUser.username}}</h5>
+            <p class="card-text">{{miUser.first_name}} {{miUser.last_name}}</p>
+            <p class="card-text">{{miUser.email}}</p>
+            <app-botonera-users [parent]="'card'" [miId]="miUser._id"></app-botonera-users>
+
+        </div>
+
+    </div>
+</div>
